@@ -4,6 +4,8 @@ Bootwire Starter Profile
 A Profile for the ProceesWire CMS
 ---------------------------------
 
+IMPORTANT - This was exported from a ProcessWire Dev Installation!
+
 This is a ready to go profile for ProcessWire with Twiter Bootstrap 2.2.2, but no content.
 
 It has a basic header and footer in an includes folder and the home.php template has just a row plus includes for the header and footer, as does the basic-page template.
