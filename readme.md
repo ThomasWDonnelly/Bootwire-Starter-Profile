@@ -6,7 +6,9 @@ A Profile for the ProceesWire CMS
 
 This is a ready to go profile for ProcessWire with Twiter Bootstrap 2.2.2, but no content.
 
-It has a basic header and footer and the home.php template
+It has a basic header and footer in an includes folder and the home.php template has just a row plus includes for the header and footer, as does the basic-page template.
+
+topnav.inc is bootstrap ready.
 
 This is designed for people that want a clean start and are used to creating Bootstrap sites and ProcessWire sites.
 
