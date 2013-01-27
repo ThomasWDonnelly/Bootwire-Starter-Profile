@@ -20,6 +20,24 @@ If you want a more full Bootstrap based profile with starter content please try 
 
 https://github.com/jsanglier/bootwire
 
+Modules
+-------
+
+This has Soma's module manager pre-installed as well as the Page Delete Module.
+
+TinyMCE
+-------
+
+TinyMCE has the spell check installed, so you will need to copy the attached tinymce directory into your /site directory as well which holds the plugin.
+
+The context menu is enabled and two Bootstrap styles (lead and btn) are added. 
+
+Pasting into the TinyMCE field will automatically remove all formatting. If you do not want that functionality, remove paste_text_sticky: true and paste_text_sticky_default:true from the Additional TinyMCE Settings field.
+
+"style" has been added to the parameters to allow those to work.
+
+The Body field is set up ready for all of that, so you may want to clone that field when you need a TinyMCE field.
+
 Installation
 ------------
 
