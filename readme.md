@@ -159,4 +159,4 @@ Other Files
 Install
 -------
 
-The installation folder.
+The installation folder
