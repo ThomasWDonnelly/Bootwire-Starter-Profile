@@ -123,30 +123,30 @@ basic-page.php (template file used for 404 page)
 
 CSS/
 
--- bootstrap.min.css
--- bootstrap-responsive.min.css
--- bootstrap-overrides.css (for adding any overrides to the main Bootstrap styles)
--- site.css (for adding site specific css)
--- editor.css (css for the TinyMCE editor)
+* bootstrap.min.css
+* bootstrap-responsive.min.css
+* bootstrap-overrides.css (for adding any overrides to the main Bootstrap styles)
+* site.css (for adding site specific css)
+* editor.css (css for the TinyMCE editor)
 
 img/
 
--- glyphicons-halflings-white.png (for the Bootstrap icon system)
--- glyphicons-halflings.png
+* glyphicons-halflings-white.png (for the Bootstrap icon system)
+* glyphicons-halflings.png
 
 
 includes/
 
--- head.inc (header that includes the standard bootstrap navbar)
--- foot.inc (footer that includes all javascript references)
--- topnav.inc (the code for the PW standard menu)
--- carousel.inc ( PW example markup for the Bootstrap carousel)
--- collapse.inc (PW example markup for the Bootstrap accordion)
+* head.inc (header that includes the standard bootstrap navbar)
+* foot.inc (footer that includes all javascript references)
+* topnav.inc (the code for the PW standard menu)
+* carousel.inc ( PW example markup for the Bootstrap carousel)
+* collapse.inc (PW example markup for the Bootstrap accordion)
 
 js/
 
--- jquery-1.8.3.js
--- bootstrap.min.js
+* jquery-1.8.3.js
+* bootstrap.min.js
 
 
 
