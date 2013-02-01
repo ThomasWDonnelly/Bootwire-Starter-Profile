@@ -2,7 +2,7 @@
 
 /*
 
-This is the bootstrap standard dropdown navigation set for nav-pills. 
+This is the bootstrap standard dropdown navigation. 
 
 It includes sub navs allowing you menu to have three
 levels - Top row, dropdown and subnav.
@@ -18,44 +18,64 @@ only needs to have the recommended title field.
 $homepage = $pages->get("/");
 $children = $homepage->children;
 $children->prepend($homepage);
-?>
-<ul class="nav nav-pills">
-<?php
+
+echo "<ul class='nav'>";
+
 foreach($children as $child) {
-         if($child->numChildren > 0 && $child<>$homepage){		
-         	$class = $child === $page->rootParent ? " active" : '';
-	         echo "<li class='dropdown$class'><a href='#' class='dropdown-toggle' data-toggle='dropdown'>{$child->title}<b class='caret'></b></a>";	         	
-	         	echo "<ul class='dropdown-menu'>";	         	
-	         	foreach($child->children as $grandchild){
-	         		if($grandchild->numChildren > 0 && $grandchild<>$homepage){
-	         				$class = $grandchild === $page ? " class='active'" : '';	         	
-				         	echo "<li class='dropdown-submenu$class'><a href='#' class='dropdown-toggle' data-toggle='dropdown'>{$grandchild->title}</a>";
 
-								echo "<ul class='dropdown-menu'>";
-								
-						         	foreach($grandchild->children as $greatgrandchild){
-						         	$class = $greatgrandchild === $page ? " class='active'" : '';
-						         	echo "<li$class><a href='{$greatgrandchild->url}'>{$greatgrandchild->title}</a></li>";
-									}	
-													
-								echo "</ul>";
-								
-							echo "</li>";
+// Some variables
+$aclass = count($child->children) ? "dropdown-toggle' data-toggle='dropdown" : '';
+$dropclass = count($child->children) ? "dropdown" : '';
+$dropcaret = count($child->children) ? "<b class='caret'></b>" : '';
+$class = $child === $page->rootParent ? " active" : '';
 
-	         		}else {
-	         			    $class = $grandchild === $page->rootParent ? " class='active'" : '';
-         					echo "<li$class><a href='{$grandchild->url}'>{$grandchild->title}</a></li>";
-	         		}
+// first level <li>
+
+// Start by printing off those that actually have children and are not the homepage.
+
+if($child->numChildren > 0 && $child<>$homepage){
+	
+echo "<li class='$class $dropclass'><a class='$aclass' href='{$child->url}'>{$child->title}$dropcaret</a>";
+
+// Drop down of second level
+	if(count($child->children)){
+		echo "<ul class='dropdown-menu'>";
+			foreach($child->children as $subchild){
+				$subdropclass = count($subchild->children) ? "dropdown-submenu" : '';
+				echo "<li class='$subdropclass'><a href='{$subchild->url}'>" . $subchild->title . "</a>"; // Second level list
+
+			// HELP WITH THIS SECTION 
+			// This next bit is the sub menu and needs to go on for infinity! 
+			// I dont know how to do that.
+
+				if(count($subchild->children)){
+					echo "<ul class='dropdown-menu'>";
+						foreach($subchild->children as $babychild){
+						echo "<li ><a href='{$babychild->url}'>" . $babychild->title . "</a>"; // 3rd level list
+						echo "</li>";
+					}
+					echo "</ul>";
 				}
-	         	
-	         	echo "</ul>";
 
-	         echo "</li>";
+			// End of the sub menu bit that I need help with.
 
-		 }else{
-         $class = $child === $page->rootParent ? " class='active'" : '';
-         echo "<li$class><a href='{$child->url}'>{$child->title}</a></li>";
-         }
+
+				echo "</li>"; // end second level list
+
+		}
+		echo "</ul>";
+	} // end second level
+
+echo "</li>"; // End first level
+
+// And finally, do the top level menu items that dont have children and chuck in the homepage.
+
+ }else{
+ $class = $child === $page->rootParent ? " class='active'" : '';
+ echo "<li$class><a href='{$child->url}'>{$child->title}</a></li>";
+ }
+
+// end the loop	
 }
-?>
-</ul>
+
+echo "</ul>";

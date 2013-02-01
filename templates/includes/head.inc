@@ -10,7 +10,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title><?=$pages->get("/site-settings/")->site_title ?> - <?php echo $page->get("headline|title");  ?></title>
+    <title><?=$pages->get("/content-management/site-settings/")->site_title ?> - <?php echo $page->get("headline|title");  ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="<?=$page->summary ?>">
     <meta name="author" content="">
@@ -31,6 +31,7 @@
     <![endif]-->
 
     <!-- Fav and touch icons - NOT INCLUDED. You need to create these and put them in /site/template/img/. -->
+    
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="<?php echo $config->urls->templates?>img/apple-touch-icon-144-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="<?php echo $config->urls->templates?>img/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="<?php echo $config->urls->templates?>img/apple-touch-icon-72-precomposed.png">
@@ -48,7 +49,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="#"><?=$pages->get("/site-settings/")->site_title ?></a>
+          <a class="brand" href="#"><?=$pages->get("/content-management/site-settings/")->site_title ?></a>
           <div class="nav-collapse collapse">
 
           	<?php include("./includes/topnav.inc"); ?>

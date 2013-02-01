@@ -22,62 +22,41 @@ The first iteration of the loop needs an addional class of "in" - so we treat th
 	
 <?php
 
-$newsitems = $pages->get("/news-articles/")->children('limit=5');
-$first = true;
-foreach($newsitems as $newsitem) {
-$count++;
+// First we get our news items and limit it to just 5
+$newsitems = $pages->get("/content-management/news-articles/")->children('limit=5');
+// Now we need to get the first child and pop it into a variable
+$firstchild = $pages->get("/content-management/news-articles/")->child;
 
+//Now, to start the loop:
+
+foreach($newsitems as $newsitem) {
+	//This is our count	
+	$count++;
+	//This will populate the first child with the class "in", telling it to be open when first activated
+	$activeClass = ($newsitem === $firstchild ? 'in' : ''); 
 ?>
 
-
-<?php if ($first) { ?>
-<!-- This is for the first group -->
 	  <div class="accordion-group">
+
+	  	<!-- This is the heading - we will click on the Title to open the pane -->
+	    
 	    <div class="accordion-heading">
-	      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse<?php echo $count; ?>">
-	        
-	        <!-- This is the title of the section -->
+	      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse<?php echo $count; ?>">  
 	        <?php echo $newsitem->title; ?>
 	      </a>
 	    </div>
-	    <div id="collapse<?php echo $count; ?>" class="accordion-body collapse in">
+
+	    <!-- This is the content pane which we are populating with a summary. This stays hidden unless -->
+
+	    <div id="collapse<?php echo $count; ?>" class="accordion-body collapse <?php echo $activeClass; ?>">	      
 	      <div class="accordion-inner sitecollapse-pane">
-	      	<!-- Put your contents in here -->
-	      	<?php echo $newsitem->body; ?>
+	      	<?php if ($newsitem->news_leadimage) { ?><div class="thumb-pull-left siteimage"><img src="<?php echo $newsitem->news_leadimage->getThumb('newswidget'); ?>" /></div> <?php } ?>
+	      	<?php echo $newsitem->summary; ?>...<a href="<?php echo $newsitem->url; ?>">Read More</a></p>
 	      </div>
 	    </div>
+
 	  </div>
-  
-  
-<?php   $first = false; 
-		} else { 
-?>
-
-<!-- This is for the second and rest -->
-
-	<div class="accordion-group">
-	    <div class="accordion-heading">
-	      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse<?php echo $count; ?>">
-	        
-	        <!-- This is the title of the section -->
-	        <?php echo $newsitem->title; ?>
-	        
-	      </a>
-	    </div>
-	    <div id="collapse<?php echo $count; ?>" class="accordion-body collapse">
-	     	 <div class="accordion-inner sitecollapse-pane">      	
-	      	<!-- Put your contents in here -->
-			<?php echo $newsitem->body; ?>
-			</div>
-		</div>	
-      </div>
-
-  </div>
 
 <?php } ?>
 
-
-<?php } ?>
-
-
-
+</div>
