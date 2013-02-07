@@ -2,84 +2,53 @@
 
 /*
 
-This is the bootstrap standard dropdown navigation set for nav-pills. 
+Navigation for ProcessWire using the Bootstrap 2.2.2 markup
 
-It includes sub navs allowing your menu to have three
-levels - Top row, dropdown and subnav.
+This allows for endless sub-categories. However, this might not be a sensible use for touch devices and would be better to use just one level of dropdown. No alteration of this script is necessary, simply restrict the menu in the Pages section of the admin.
 
-IMPORTANT
+Note: The Top level item where they have children cannot be linked to a page. This is to allow "click to open" for touch devices. So you need to arrange your pages accordingly.
 
-Bootstrap does not allow the parent to be linkable, so your parents in your pages tree
-Need be nothing more than a page with a template and no associated template file. The template
-only needs to have the recommended title field.
+Bootstrap 3 - there is no guarantees that this will work in Bootstrap 3 (whenever that comes out) simply because they are considering scrapping sub menus.
 
-Note also that with responsive sites, very complicated menus are a pain!
+This menu was written by Soma based on work by NetCarver and a bit thrown in by Joss
 
-TODO - extend the system to allow for multiple levels of sub menu.
+Feb 2013 v0.2
 
 */
 
-$homepage = $pages->get("/");
-$children = $homepage->children;
-$children->prepend($homepage);
-
-echo "<ul class='nav nav-pills'>";
-
-foreach($children as $child) {
-
-// Some variables
-$aclass = count($child->children) ? "dropdown-toggle' data-toggle='dropdown" : '';
-$dropclass = count($child->children) ? "dropdown" : '';
-$dropcaret = count($child->children) ? "<b class='caret'></b>" : '';
-$class = $child === $page->rootParent ? " active" : '';
-
-// first level <li>
-
-// Start by printing off those that actually have children and are not the homepage.
-
-if($child->numChildren > 0 && $child<>$homepage){
-	
-echo "<li class='$class $dropclass'><a class='$aclass' href='{$child->url}'>{$child->title}$dropcaret</a>";
-
-// Drop down of second level
-	if(count($child->children)){
-		echo "<ul class='dropdown-menu'>";
-			foreach($child->children as $subchild){
-				$subdropclass = count($subchild->children) ? "dropdown-submenu" : '';
-				echo "<li class='$subdropclass'><a href='{$subchild->url}'>" . $subchild->title . "</a>"; // Second level list
-
-			// HELP WITH THIS SECTION 
-			// This next bit is the sub menu and needs to go on for infinity! 
-			// I dont know how to do that.
-
-				if(count($subchild->children)){
-					echo "<ul class='dropdown-menu'>";
-						foreach($subchild->children as $babychild){
-						echo "<li ><a href='{$babychild->url}'>" . $babychild->title . "</a>"; // 3rd level list
-						echo "</li>";
-					}
-					echo "</ul>";
-				}
-
-			// End of the sub menu bit that I need help with.
-
-
-				echo "</li>"; // end second level list
-
-		}
-		echo "</ul>";
-	} // end second level
-
-echo "</li>"; // End first level
-
-// And finally, do the top level menu items that dont have children and chuck in the homepage.
-
- }else{
- $class = $child === $page->rootParent ? " class='active'" : '';
- echo "<li$class><a href='{$child->url}'>{$child->title}</a></li>";
- }
-
-// end the loop	
+function renderChildrenOf($pa, $output = '', $level = 0) {
+    $output = '';
+    $level++;
+    foreach($pa as $child) {
+        $atoggle = '';
+        $class = '';
+        if ($child->numChildren && count($child->parents) == 1) {
+            $class .= 'dropdown';
+            $atoggle .= ' class="dropdown-toggle" data-toggle="dropdown"';
+        } else if($child->numChildren && $child->id != 1){
+            $class .= 'dropdown-submenu';
+        }
+        // Makes the current page and it's top level parent add an active class
+        $class .= ($child === wire("page") || $child === wire("page")->rootParent) ? " active" : '';
+        $class = strlen($class) ? " class='".trim($class)."'" : '';
+        $output .= "<li$class><a href='$child->url'$atoggle>$child->title</a>";
+ 
+        // If this child is itself a parent and not the root page, then render it's children in their own menu too...
+        if($child->numChildren && $child->id != 1) {
+            $output .= renderChildrenOf($child->children, $output, $level);
+        }
+        $output .= '</li>';
+    }
+    $outerclass = ($level == 1) ? "nav nav-pills" : 'dropdown-menu';
+    return "<ul class='$outerclass'>$output</ul>";
 }
+ 
+// bundle up the first level pages and prepend the root home page
+$homepage = $pages->get(1);
+$pa = $homepage->children;
+$pa = $pa->prepend($homepage);
+ 
+// Set the ball rolling...
+echo renderChildrenOf($pa);
 
-echo "</ul>";
+?>
