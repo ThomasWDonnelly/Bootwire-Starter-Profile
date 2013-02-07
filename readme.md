@@ -14,11 +14,11 @@ topnav.inc is bootstrap ready.
 
 This is designed for people that want a clean start and are used to creating Bootstrap sites and ProcessWire sites.
 
-You may also be interested in the Bootwire Admin theme:
+You may also be interested in the Bootwire Admin theme (which is not production ready):
 
 https://github.com/jsanglier/Bootwire-Admin
 
-If you want a more full Bootstrap based profile with starter content please try the Bootwire Profile:
+If you want a more full Bootstrap based profile with starter content please try the Bootwire Profile (coming soon):
 
 https://github.com/jsanglier/bootwire
 
