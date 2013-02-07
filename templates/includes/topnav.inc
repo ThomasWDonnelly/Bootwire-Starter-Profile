@@ -12,43 +12,45 @@ Bootstrap 3 - there is no guarantees that this will work in Bootstrap 3 (wheneve
 
 This menu was written by Soma based on work by NetCarver and a bit thrown in by Joss
 
-Feb 2013 v0.2
-
 */
 
-function renderChildrenOf($pa, $output = '', $level = 0) {
+function renderChildrenOf($pa, $root = null, $output = '', $level = 0) {
+    if(!$root) $root = wire("pages")->get(1);
     $output = '';
     $level++;
     foreach($pa as $child) {
         $atoggle = '';
         $class = '';
-        if ($child->numChildren && count($child->parents) == 1) {
+        if ($child->numChildren && $level == 1) {
             $class .= 'dropdown';
             $atoggle .= ' class="dropdown-toggle" data-toggle="dropdown"';
-        } else if($child->numChildren && $child->id != 1){
+        } else if($child->numChildren && $child !== $root){
             $class .= 'dropdown-submenu';
         }
         // Makes the current page and it's top level parent add an active class
-        $class .= ($child === wire("page") || $child === wire("page")->rootParent) ? " active" : '';
+        if($child === wire("page")
+           || ($level == 1 && $child === wire("page")->rootParent && $child !== $root)
+           || ($level == 1 && wire("page")->parents->has($child) && $child !== $root)) {
+            $class .= ' active';
+        }
         $class = strlen($class) ? " class='".trim($class)."'" : '';
+ 
         $output .= "<li$class><a href='$child->url'$atoggle>$child->title</a>";
  
         // If this child is itself a parent and not the root page, then render it's children in their own menu too...
-        if($child->numChildren && $child->id != 1) {
-            $output .= renderChildrenOf($child->children, $output, $level);
+        if($child->numChildren && $child !== $root) {
+            $output .= renderChildrenOf($child->children, $root, $output, $level);
         }
         $output .= '</li>';
     }
-    $outerclass = ($level == 1) ? "nav nav-pills" : 'dropdown-menu';
+    $outerclass = ($level == 1) ? "nav2" : 'dropdown-menu2';
     return "<ul class='$outerclass'>$output</ul>";
 }
  
 // bundle up the first level pages and prepend the root home page
-$homepage = $pages->get(1);
-$pa = $homepage->children;
-$pa = $pa->prepend($homepage);
+$root = $pages->get(1);
+$pa = $root->children;
+$pa = $pa->prepend($root);
  
 // Set the ball rolling...
 echo renderChildrenOf($pa);
-
-?>
