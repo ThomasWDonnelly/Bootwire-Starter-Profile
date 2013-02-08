@@ -43,7 +43,7 @@ function renderChildrenOf($pa, $root = null, $output = '', $level = 0) {
         }
         $output .= '</li>';
     }
-    $outerclass = ($level == 1) ? "nav2" : 'dropdown-menu2';
+    $outerclass = ($level == 1) ? "nav" : 'dropdown-menu';
     return "<ul class='$outerclass'>$output</ul>";
 }
  
