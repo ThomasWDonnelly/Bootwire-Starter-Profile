@@ -30,6 +30,7 @@ $firstImage = $page->images->first();
 <!-- Carousel indicators -->
 <ol class="carousel-indicators">
 <?
+$count = -1; // the carousel indicators need to start at 0
 foreach($page->images as $image) {
 $activeClass = ($image === $firstImage ? 'active' : ''); 
 $count++;
