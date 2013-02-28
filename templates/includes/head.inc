@@ -1,8 +1,12 @@
 <?php
 
 /*
-* This header includes the bootstrap top-nav, mast header and so on.
+* This header includes the bootstrap top fixed navigation bar
 */
+
+// Include the functions script
+
+include("./includes/functions.inc");
 
 ?>
 
@@ -17,7 +21,7 @@
 
     <!-- Le styles -->
 	<link rel="stylesheet" type="text/css" href="<?php echo $config->urls->templates?>css/bootstrap.min.css" />
-  <link rel="stylesheet" type="text/css" href="<?php echo $config->urls->templates?>css/site.css" />
+  
     <style type="text/css">
       body {
         padding-top: 60px;
@@ -25,7 +29,10 @@
       }
     </style>
 	<link rel="stylesheet" type="text/css" href="<?php echo $config->urls->templates?>css/bootstrap-responsive.min.css" />
-	<link rel="stylesheet" type="text/css" href="<?php echo $config->urls->templates?>css/bootstrap-overrides.css" />    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+	<link rel="stylesheet" type="text/css" href="<?php echo $config->urls->templates?>css/bootstrap-overrides.css" />
+  <link rel="stylesheet" type="text/css" href="<?php echo $config->urls->templates?>css/site.css" />    
+
+  <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
