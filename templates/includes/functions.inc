@@ -183,7 +183,7 @@ echo $out;
 
 }
 
-/* Bootstrap Button Dropdown
+/* BOOTSTRAP BUTTON DROPDOWN
 
 This is just an example to be cut and pasted rather than 
 used as a function. Here, I have just linked to children of the 
@@ -206,4 +206,72 @@ function bootwireButtonDropdown(){
 
 	echo "<ul></div>";
 
+}
+
+/* BOOTSTRAP THUMBNAILS FOR GALLERY
+
+This is a slightly more complex function in that it allows for some extra settings
+that can be managed via a field
+
+This requires two fields:
+
+images - an image field with description enabled and allowing for multiple images
+gallery_columns - an integer field with the value restricted between 2 and 6
+
+The imgage dimensions below are for squares are are calculated on the standard
+Bootstrap responsive width of 1170. You will need to recuculate them for your own
+grid size. 
+
+Note: 5 columns does not work since Bootstrap's grid is 12.
+So if 5 is set, it will produce 6 columns
+
+The default number of columns is 4.
+
+You can add a lightbox like Colorbox to this simply by adding the required classes to the <a> tag.
+
+This utilises the extra bit of JQuery in bootwire.js to correct the alignment of the first image in
+the second and subsequent rows.
+
+*/
+
+function bootwireThumbnailsGallery(){
+
+	$galleryimages = wire("page")->images;
+	$gallerycolumns = wire("page")->gallery_columns;
+	if($gallerycolumns == 2){
+		$span = 6;
+		$imagedim = 570;
+	} elseif ($gallerycolumns == 3){
+		$span = 4;
+		$imagedim = 370;		
+	} elseif($gallerycolumns == 4){
+		$span = 3;
+		$imagedim = 270;		
+	} elseif($gallerycolumns == 5){
+		$span = 2;
+		$imagedim = 170;		
+	} elseif($gallerycolumns == 6){
+		$span = 2;
+		$imagedim = 170;		
+	}else{
+		$span = 3;
+		$imagedim = 270;
+	}
+
+	$out = " ";
+
+	foreach ($galleryimages as $galleryimage) {
+		$out .= "<li class='span{$span}'>";
+        $out .= "<a href='{$galleryimage->url}' title='{$galleryimage->description}'>";
+        $out .= "<img src='{$galleryimage->size($imagedim, $imagedim)->url}'>";
+        $out .= "</a>";
+        $out .= "</li>";
+	}
+/*
+This is designed to work in a fluid row - if this is being inserted into a pre-existing row, remove the 
+DIV below, but keep the UL.
+*/
+	echo "<div class='row-fluid'>";
+	echo "<ul class='thumbnails'>{$out}</ul>";
+	echo "</div>";
 }
