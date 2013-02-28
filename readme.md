@@ -1,6 +1,8 @@
 Bootwire Starter Profile
 ========================
 
+Version 0.5
+
 A Profile for the ProceesWire CMS
 ---------------------------------
 
@@ -26,6 +28,13 @@ Modules
 -------
 
 This has Soma's module manager pre-installed as well as the Page Delete Module.
+
+Functions
+---------
+
+This version comes with a functions.inc file, included into the head.inc file. 
+
+The functions are a small collection of pre-made, ready to use Bootstrap components such as Collapse, Carousel, Tabs and Thumbnails set out as a gallery. Fully commented with instructions as to what fields are required. 
 
 TinyMCE
 -------
@@ -140,13 +149,13 @@ includes/
 * head.inc (header that includes the standard bootstrap navbar)
 * foot.inc (footer that includes all javascript references)
 * topnav.inc (the code for the PW standard menu)
-* carousel.inc ( PW example markup for the Bootstrap carousel)
-* collapse.inc (PW example markup for the Bootstrap accordion)
+* functions.inc (various Bootstrap functions such as carousel, collapse and a gallery layout)
 
 js/
 
-* jquery-1.8.3.js
+* jquery-1.9.1.js
 * bootstrap.min.js
+* bootwire.js (additional jquery - especially to correct Bootstrap thumbnail alignment)
 
 
 
